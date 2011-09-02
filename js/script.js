@@ -2,16 +2,19 @@
 
 */
 
-var TARGET_DAY  = 5,
+var MINUTES     = 1000*60,
+    HOURS       = MINUTES*60,
+    DAYS        = HOURS*24,
+    YEARS       = DAYS*365,
+    TARGET_DAY  = 5,
     TARGET_HOUR = 16;
 
 $(document).ready(function() {
-  // $('#complete_message').hide();
-  // $('#countdown_container').hide();
+  // log(timeUntilBeerFriday());
   
   var now = new Date();
   
-  if (now.getDay() == TARGET_DAY && now.getHours() == TARGET_HOUR) {
+  if (now.getDay() == TARGET_DAY && now.getHours() >= TARGET_HOUR) {
     showCompleteMessage();
   } else {
     showCountdown();
@@ -44,18 +47,30 @@ function showCountdown() {
 
 // code to get the next friday
 function timeUntilBeerFriday() {
-  var nextFriday = dateOfNext(TARGET_DAY);
-  nextFriday.setHours(TARGET_HOUR);
-  nextFriday.setMinutes(0);
-  nextFriday.setSeconds(0);
+  var today      = new Date(),
+      beerFriday = (today.getDay() == TARGET_DAY) ? new Date() : dateOfNext(TARGET_DAY);
+      
+  // force time to be target time
+  beerFriday.setHours(TARGET_HOUR);
+  beerFriday.setMinutes(0);
+  beerFriday.setSeconds(0);
   
-  var now       = $.now(),
-      diffSecs  = (nextFriday - now) / 1000,
+  var now       = today.getTime(),
+      diffSecs  = (beerFriday - now) / 1000,
       secs      = Math.floor(diffSecs % 60),
       mins      = Math.floor(diffSecs/60)%60,
       hours     = Math.floor(diffSecs/60/60)%24,
       days      = Math.floor(diffSecs/60/60/24);
 
+  // log("diffSecs:"+diffSecs);
+  // log("today:"+today);
+  // log("beerFriday:"+beerFriday);
+  // log("now:"+now);
+  // log("days:"+days);
+  // log("hours:"+hours);
+  // log("mins:"+mins);
+  // log("secs:"+secs);
+  
   return $.sprintf("%02s:%02s:%02s:%02s", days, hours, mins, secs);
 }
 
@@ -68,11 +83,10 @@ function subtractDays(myDate,days) {
 }
 
 function dateOfNext(weekdayNumber) {
-    var today = new Date();
-
-    var lastSunday = subtractDays(today, today.getDay());
-
-    var daysToAdd = weekdayNumber;
+    var today       = new Date(),
+        lastSunday  = subtractDays(today, today.getDay()),
+        daysToAdd = weekdayNumber;
+        
     if (weekdayNumber <= today.getDay()) {
         daysToAdd = daysToAdd + 7;
     }
