@@ -29,14 +29,23 @@ $(document).ready(function() {
         });
       }
     });
-  }
-  
+    
+    if (now.getDay() == TARGET_DAY && now.getHours() >= (TARGET_HOUR - 1))
+      showAlmostTimeMessage();
+ }  
 });
 
 function showCompleteMessage() {
   $('#complete_message').hide();
   $('#complete_message').removeClass('hidden');
-  $('#complete_message').fadeIn(2000);  
+  $('#complete_message').fadeIn(2000);
+  
+}
+
+function showAlmostTimeMessage() {
+  $('#almost_time').hide();
+  $('#almost_time').removeClass('hidden');
+  $('#almost_time').fadeIn(2000);  
 }
 
 function showCountdown() {
