@@ -2,33 +2,61 @@
 
 */
 
+var TARGET_DAY  = 5,
+    TARGET_HOUR = 16;
 
-jQuery(document).ready(function() {
-  $('#countdown').countdown({
-    image: 'img/digits.png',
-    startTime: timeUntilBeerFriday(),
-    timerEnd: function() {
-      $('#countdown_container').slideUp();
-      $('#complete_message').slideDown();
-    }
-  });
+$(document).ready(function() {
+  // $('#complete_message').hide();
+  // $('#countdown_container').hide();
+  
+  var now = new Date();
+  
+  if (now.getDay() == TARGET_DAY && now.getHours() == TARGET_HOUR) {
+    showCompleteMessage();
+  } else {
+    showCountdown();
+    
+    $('#countdown').countdown({
+      image: 'img/digits.png',
+      startTime: timeUntilBeerFriday(),
+      timerEnd: function() {
+        $('#countdown_container').slideUp(1000, function () {
+          $('#countdown_container').hide();
+          showCompleteMessage();
+        });
+      }
+    });
+  }
+  
 });
+
+function showCompleteMessage() {
+  $('#complete_message').hide();
+  $('#complete_message').removeClass('hidden');
+  $('#complete_message').fadeIn(2000);  
+}
+
+function showCountdown() {
+  $('#countdown_container').hide();
+  $('#countdown_container').removeClass('hidden');
+  $('#countdown_container').fadeIn(1000);
+}
 
 // code to get the next friday
 function timeUntilBeerFriday() {
-  var nextFriday = dateOfNext(5);
-  nextFriday.setHours(16);
+  var nextFriday = dateOfNext(TARGET_DAY);
+  nextFriday.setHours(TARGET_HOUR);
   nextFriday.setMinutes(0);
   nextFriday.setSeconds(0);
   
-  var now       = jQuery.now(),
+  var now       = $.now(),
       diffSecs  = (nextFriday - now) / 1000,
       secs      = Math.floor(diffSecs % 60),
       mins      = Math.floor(diffSecs/60)%60,
       hours     = Math.floor(diffSecs/60/60)%24,
       days      = Math.floor(diffSecs/60/60/24);
 
-  return jQuery.sprintf("%02s:%02s:%02s:%02s", days, hours, mins, secs);
+  return $.sprintf("%02s:%02s:%02s:%02s", days, hours, mins, secs);
 }
 
 function addDays(myDate,days) {

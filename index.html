@@ -1,63 +1,85 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
 	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
 	<title>Beer Friday</title>
-	<meta name="description" content="">
+	<meta name="description" content="Focusing on the important things.">
 	<meta name="author" content="">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<link rel="stylesheet" href="css/style.css">
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
+
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
 
 	<script src="js/libs/modernizr-2.0.6.min.js"></script>
+
 </head>
 <body>
 
-<div id="container">
-
-  <div id="complete_message" class="hidden">
-    You better be drinking!
-  </div>
-  
-  <div id="countdown_container">
-    <div id="countdown"></div>
-     <div class="desc">
-       <div>Days</div>
-       <div>Hours</div>
-       <div>Minutes</div>
-       <div>Seconds</div>
-     </div>
-  </div>
-
-</div>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
-<script src="js/libs/strobe.min.js"></script>
-<script src="js/libs/jquery.countdown.min.js"></script>
-<script src="js/libs/jquery.sprintf.js"></script>
 
 
+	<!-- Primary Page Layout
+	================================================== -->
+
+	<!-- Delete everything in this .container and get started on your own site! -->
+
+	<div class="container">
+		<div class="sixteen columns">
+			<h1 class="remove-bottom" style="margin-top: 40px">Beer Friday</h1>
+			<hr />
+		</div>
+		<div class="sixteen columns">
+            <div id="complete_message" class="hidden">
+              <h3>You better be drinking!</h3>
+            </div>
+
+            <div id="countdown_container" class="hidden">
+              <div id="countdown"></div>
+               <div class="desc">
+                 <div>Days</div>
+                 <div>Hours</div>
+                 <div>Minutes</div>
+                 <div>Seconds</div>
+               </div>
+            </div>
+		</div>
+	</div><!-- container -->
 
 
-<!-- scripts concatenated and minified via ant build script-->
-<script src="js/plugins.js"></script>
-<script src="js/script.js"></script>
-<!-- end scripts-->
+	<!-- JS
+	================================================== -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery-1.6.2.min.js"><\/script>')</script>
+	<script src="javascripts/tabs.js"></script>
+    <script src="js/libs/strobe.min.js"></script>
+    <script src="js/libs/jquery.countdown.min.js"></script>
+    <script src="js/libs/jquery.sprintf.js"></script>
 
+    <script src="js/plugins.js"></script>
+    <script src="js/script.js"></script>
 
-
-<!--[if lt IE 7 ]>
-	<script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-	<script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-<![endif]-->
-
+<!-- End Document
+================================================== -->
 </body>
 </html>
-
