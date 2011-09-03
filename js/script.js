@@ -36,6 +36,8 @@ $(document).ready(function() {
 });
 
 function showCompleteMessage() {
+  $('#almost_time').hide();
+  $('#almost_time').addClass('hidden');
   $('#complete_message').hide();
   $('#complete_message').removeClass('hidden');
   $('#complete_message').fadeIn(2000);
