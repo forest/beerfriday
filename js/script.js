@@ -1,106 +1,1 @@
-/* Author: 
-
-*/
-
-var MINUTES     = 1000*60,
-    HOURS       = MINUTES*60,
-    DAYS        = HOURS*24,
-    YEARS       = DAYS*365,
-    TARGET_DAY  = 5,
-    TARGET_HOUR = 16;
-
-$(document).ready(function() {
-  // log(timeUntilBeerFriday());
-  
-  var now = new Date();
-  
-  if (now.getDay() == TARGET_DAY && now.getHours() >= TARGET_HOUR) {
-    showCompleteMessage();
-  } else {
-    showCountdown();
-    
-    $('#countdown').countdown({
-      image: 'img/digits.png',
-      startTime: timeUntilBeerFriday(),
-      timerEnd: function() {
-        $('#countdown_container').slideUp(1000, function () {
-          $('#countdown_container').hide();
-          showCompleteMessage();
-        });
-      }
-    });
-    
-    if (now.getDay() == TARGET_DAY && now.getHours() >= (TARGET_HOUR - 1))
-      showAlmostTimeMessage();
- }  
-});
-
-function showCompleteMessage() {
-  $('#almost_time').hide();
-  $('#almost_time').addClass('hidden');
-  $('#complete_message').hide();
-  $('#complete_message').removeClass('hidden');
-  $('#complete_message').fadeIn(2000);
-  
-}
-
-function showAlmostTimeMessage() {
-  $('#almost_time').hide();
-  $('#almost_time').removeClass('hidden');
-  $('#almost_time').fadeIn(2000);  
-}
-
-function showCountdown() {
-  $('#countdown_container').hide();
-  $('#countdown_container').removeClass('hidden');
-  $('#countdown_container').fadeIn(1000);
-}
-
-// code to get the next friday
-function timeUntilBeerFriday() {
-  var today      = new Date(),
-      beerFriday = (today.getDay() == TARGET_DAY) ? new Date() : dateOfNext(TARGET_DAY);
-      
-  // force time to be target time
-  beerFriday.setHours(TARGET_HOUR);
-  beerFriday.setMinutes(0);
-  beerFriday.setSeconds(0);
-  
-  var now       = today.getTime(),
-      diffSecs  = (beerFriday - now) / 1000,
-      secs      = Math.floor(diffSecs % 60),
-      mins      = Math.floor(diffSecs/60)%60,
-      hours     = Math.floor(diffSecs/60/60)%24,
-      days      = Math.floor(diffSecs/60/60/24);
-
-  // log("diffSecs:"+diffSecs);
-  // log("today:"+today);
-  // log("beerFriday:"+beerFriday);
-  // log("now:"+now);
-  // log("days:"+days);
-  // log("hours:"+hours);
-  // log("mins:"+mins);
-  // log("secs:"+secs);
-  
-  return $.sprintf("%02s:%02s:%02s:%02s", days, hours, mins, secs);
-}
-
-function addDays(myDate,days) {
-    return new Date(myDate.getTime() + days*24*60*60*1000);
-}
-
-function subtractDays(myDate,days) {
-    return new Date(myDate.getTime() - days*24*60*60*1000);
-}
-
-function dateOfNext(weekdayNumber) {
-    var today       = new Date(),
-        lastSunday  = subtractDays(today, today.getDay()),
-        daysToAdd = weekdayNumber;
-        
-    if (weekdayNumber <= today.getDay()) {
-        daysToAdd = daysToAdd + 7;
-    }
-
-    return addDays(lastSunday, daysToAdd);
-}
+/* Author: */var App = {};App.MINUTES     = 1000*60;App.HOURS       = App.MINUTES*60;App.DAYS        = App.HOURS*24;App.YEARS       = App.DAYS*365;App.TARGET_DAY  = 5;App.TARGET_HOUR = 16;App.DIGIT_WIDTH_LARGE  = 53;App.DIGIT_HEIGHT_LARGE = 77;App.DIGIT_WIDTH_SMALL  = 25;App.DIGIT_HEIGHT_SMALL = 37;// defaultsApp.image       = 'img/digits.png';App.digitWidth  = App.DIGIT_WIDTH_LARGE;App.digitHeight = App.DIGIT_HEIGHT_LARGE;// with smaller mediaif ($.mh.media('screen and (max-width: 767px)') ||    $.mh.media('screen and (min-width: 480px) and (max-width: 767px)') ||    $.mh.media('screen and (max-width: 479px)')) {      App.image       = 'img/digits-small.png';      App.digitWidth  = App.DIGIT_WIDTH_SMALL;      App.digitHeight = App.DIGIT_HEIGHT_SMALL;}$(document).ready(function() {  // log(timeUntilBeerFriday());    var now = new Date();    if (now.getDay() == App.TARGET_DAY && now.getHours() >= App.TARGET_HOUR) {    showCompleteMessage();  } else {    showCountdown();        $('#countdown').countdown({      startTime: timeUntilBeerFriday(),      image: App.image,      digitWidth: App.digitWidth,      digitHeight: App.digitHeight,      timerEnd: function() {        $('#countdown_container').slideUp(1000, function () {          $('#countdown_container').hide();          showCompleteMessage();        });      }    });        if (now.getDay() == App.TARGET_DAY && now.getHours() >= (App.TARGET_HOUR - 1)) {      showAlmostTimeMessage();          } }  });function showCompleteMessage() {  $('#almost_time').hide();  $('#almost_time').addClass('hidden');  $('#complete_message').hide();  $('#complete_message').removeClass('hidden');  $('#complete_message').fadeIn(2000);  }function showAlmostTimeMessage() {  $('#almost_time').hide();  $('#almost_time').removeClass('hidden');  $('#almost_time').fadeIn(2000);  }function showCountdown() {  $('#countdown_container').hide();  $('#countdown_container').removeClass('hidden');  $('#countdown_container').fadeIn(1000);}// code to get the next fridayfunction timeUntilBeerFriday() {  var today      = new Date(),      beerFriday = (today.getDay() == App.TARGET_DAY) ? new Date() : dateOfNext(App.TARGET_DAY);        // force time to be target time  beerFriday.setHours(App.TARGET_HOUR);  beerFriday.setMinutes(0);  beerFriday.setSeconds(0);    var now       = today.getTime(),      diffSecs  = (beerFriday - now) / 1000,      secs      = Math.floor(diffSecs % 60),      mins      = Math.floor(diffSecs/60)%60,      hours     = Math.floor(diffSecs/60/60)%24,      days      = Math.floor(diffSecs/60/60/24);  // log("diffSecs:"+diffSecs);  // log("today:"+today);  // log("beerFriday:"+beerFriday);  // log("now:"+now);  // log("days:"+days);  // log("hours:"+hours);  // log("mins:"+mins);  // log("secs:"+secs);    return $.sprintf("%02s:%02s:%02s:%02s", days, hours, mins, secs);}function addDays(myDate,days) {    return new Date(myDate.getTime() + days * App.DAYS);}function subtractDays(myDate,days) {    return new Date(myDate.getTime() - days * App.DAYS);}function dateOfNext(weekdayNumber) {    var today       = new Date(),        lastSunday  = subtractDays(today, today.getDay()),        daysToAdd = weekdayNumber;            if (weekdayNumber <= today.getDay()) {        daysToAdd = daysToAdd + 7;    }    return addDays(lastSunday, daysToAdd);}
